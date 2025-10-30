@@ -3,7 +3,6 @@
 ### Projects
 + [Brain.dump](https://github.com/hackdanismo/brain.dump): A collection of development notes, coding snippets and knowledge.
 + [Blyprr](https://github.com/hackdanismo/blyprr): Microblogging platform written in `PHP` [**PRIVATE REPO**]: [https://blyprr.com/](https://blyprr.com/)
-+ [Analytics Dashboard](https://github.com/hackdanismo/analytics-dashboard): Analytics Dashboard [**PRIVATE REPO**]
 
 <!--
 **hackdanismo/hackdanismo** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
