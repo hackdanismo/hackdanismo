@@ -1,8 +1,13 @@
 # Welcome 👋
-Here is my GitHub account containing all my recent projects. I'm `Dan Jackson (Hackdanismo)` and I'm a developer based in East Sussex, UK.
+Here is my GitHub account containing all my recent projects. I'm `Dan Jackson (Hackdanismo)` and I'm a developer based in East Sussex, UK. [Connect on LinkedIn](https://www.linkedin.com/in/danjacksonwebdev/)
 
 ## How was this page created?
 To create a welcome page for the `GitHub` repo, open a new repository named after your `GitHub` account, e.g. `hackdanismo`, and add a `README.md` file to it. Commit the change and this welcome/intro page will be created. The repo should be made `public` to allow the page to be visible.
+
+## Writings
++ [Crunch: Focus on Accessibility](https://crunchtech.medium.com/focus-on-accessibility-5ad87434bdde)
++ [Learning Rust: The Basics](https://medium.com/@hackdanismo/learning-rust-the-basics-d414ae56bbbc)
++ [Learning Rust: Taking the Next Steps](https://medium.com/@hackdanismo/learning-rust-taking-the-next-step-4d334dbd716c)
 
 ## Projects
 Here is a list of my projects to check out:
