@@ -1,4 +1,13 @@
-## Hi there 👋
+# Welcome 👋
+Here is my GitHub account containing all my recent projects. I'm `Dan Jackson (Hackdanismo)` and I'm a developer based in East Sussex, UK.
+
+## How was this page created?
+To create a welcome page for the `GitHub` repo, open a new repository named after your `GitHub` account, e.g. `hackdanismo`, and add a `README.md` file to it. Commit the change and this welcome/intro page will be created. The repo should be made `public` to allow the page to be visible.
+
+## Projects
+Here is a list of my projects to check out:
+
++ [reset](https://github.com/hackdanismo/reset) - a basic CSS reset used for web pages, websites and applications. Released under the MIT licence.
 
 <!--
 **hackdanismo/hackdanismo** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
