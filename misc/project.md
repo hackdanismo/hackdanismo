@@ -1,7 +1,11 @@
 # Web Project
 A document that outlines a possible web project.
 
-## Content Management System (CMS)
++ [Content Management System](#content-management-system)
+    + [Headless CMS](#headless-cms)
++ [Frontend](#frontend)
+
+## Content Management System
 A `CMS`, or `Content Management System`, is software that helps users to `create`, `edit`, `organize`, and `publish` content, such as web pages, without needing to write code for every change. Examples of `Content Management Systems` include: 
 
 + [WordPress](https://en-gb.wordpress.org/)
@@ -38,3 +42,16 @@ Traditional `CMS` that can be used headless:
 + `Umbraco`	- has headless/Content Delivery API options.
 + `Adobe Experience Manager` - enterprise CMS with headless content delivery features.
 + `Sitecore` - enterprise CMS/DXP with headless capabilities.
+
+## Frontend
+For a SaaS website, the best frontend for working with a CMS is usually `Next.js`. It is the safest default because it handles the main SaaS website needs well: `SEO`, `fast landing pages`, `blog/content pages`, `dynamic routes`, `preview mode`, `analytics scripts`, `forms`, `A/B testing`, and easy deployment. It also works well with most headless CMSs and is especially common with: `Sanity`, `Contentful`, `Storyblok`, `Prismic`, `Strapi`, `Payload`, `Hygraph`, and `WordPress headless`.
+
+Choose `Next.js` when your SaaS site has:
+
++ Marketing pages
++ Blog or resources section
++ Case studies
++ SEO landing pages
++ Dynamic pages from a CMS
++ Product-led signup flows
++ A React-based team or app
