@@ -14,6 +14,10 @@ Here is a list of my projects to check out:
 
 + [reset](https://github.com/hackdanismo/reset) - a basic CSS reset used for web pages, websites and applications. Released under the MIT licence.
 
+## Notes
+
++ [Web project](/mist/project.md) - documentation for a web project within a markdown file.
+
 <!--
 **hackdanismo/hackdanismo** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
