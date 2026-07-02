@@ -16,7 +16,7 @@ Here is a list of my projects to check out:
 
 ## Notes
 
-+ [Web project](/mist/project.md) - documentation for a web project within a markdown file.
++ [Web project](/misc/project.md) - documentation for a web project within a markdown file.
 
 <!--
 **hackdanismo/hackdanismo** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
