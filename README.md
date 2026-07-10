@@ -13,6 +13,7 @@ To create a welcome page for the `GitHub` repo, open a new repository named afte
 Here is a list of my projects to check out:
 
 + [reset](https://github.com/hackdanismo/reset) - a basic CSS reset used for web pages, websites and applications. Released under the MIT licence.
++ [layout](https://github.com/hackdanismo/layout) - CSS stylesheets for adding a responsive grid alongside building layout and page structure. Released under the MIT licence.
 
 <!--
 **hackdanismo/hackdanismo** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
