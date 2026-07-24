@@ -238,6 +238,14 @@ So a test prompt to run the SKILL.md would be:
 webflow-copy-update On the Extension Demo site, update the homepage Heading Jumbo from "Grow your business" to "Updated with Claude Code"
 ```
 
+To get the skill from inside of Webflow (the Instructions section) inside Claude Code once the MCP is connected:
+
+```
+On the Frontify Website, find the Webflow instruction named “Design system 2”.
+```
+
+<img width="1544" height="758" alt="Screenshot 2026-07-24 at 16 55 37" src="https://github.com/user-attachments/assets/152b089f-a0d2-4d57-a15d-160dfc5ae2d2" />
+
 + `.mcp.json` connects Claude Code to Webflow.
 + `.claude/skills/webflow-copy-update/SKILL.md` tells Claude how to perform the copy-update workflow.
 
