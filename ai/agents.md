@@ -3,6 +3,11 @@ An `agent` is a system that uses a `large language model (LLM)` to not just gene
 
 `Guardrails` are used to restrict what agents can do and when human approvals are needed.
 
+## Claude
+
+### Claude Code
+To start `Claude Code`, use the command: `claude` in the terminal.
+
 ## Google Gemini
 `Antigravity CLI` is the replacement for `Gemini CLI`. Starting **June 18, 2026**, `Gemini CLI` stopped serving requests for the Gemini Code Assist for individuals, Google AI Pro, and Google AI Ultra tiers, and affected users should migrate to `Antigravity CLI`. `Antigravity CLI` is a newer implementation and part of Google's broader Antigravity agent platform.
 
