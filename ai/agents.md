@@ -230,6 +230,12 @@ If branching is unavailable:
 3. Ask for explicit approval before using a non-branch workflow.
 ```
 
+So a test prompt to run the SKILL.md would be:
+
+```
+/webflow-copy-update On the Acme Marketing site, update the homepage hero heading from "Old heading" to "New heading".
+```
+
 ## Google Gemini
 `Antigravity CLI` is the replacement for `Gemini CLI`. Starting **June 18, 2026**, `Gemini CLI` stopped serving requests for the Gemini Code Assist for individuals, Google AI Pro, and Google AI Ultra tiers, and affected users should migrate to `Antigravity CLI`. `Antigravity CLI` is a newer implementation and part of Google's broader Antigravity agent platform.
 
