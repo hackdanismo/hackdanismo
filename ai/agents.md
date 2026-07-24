@@ -8,6 +8,228 @@ An `agent` is a system that uses a `large language model (LLM)` to not just gene
 ### Claude Code
 To start `Claude Code`, use the command: `claude` in the terminal.
 
+The fil structure to add a skill using a `SKILL.md` file:
+
+```
+your-project/
+└── .claude/
+    └── skills/
+        └── webflow-copy-update/
+            └── SKILL.md
+```
+
+A `SKILL.md` file would look like this:
+
+```
+---
+name: webflow-copy-update
+description: Create a Webflow page branch and safely update approved page copy.
+version: 1.0.0
+webflow_mcp_version: 2.0.1
+required_mcp_servers:
+  - webflow
+---
+
+# Webflow Copy Update
+
+Use this skill when updating text content on an existing Webflow page. Do not use it for layout, styling, component, or CMS-schema changes.
+
+## Objective
+
+Make copy changes on a page branch without modifying the production page directly.
+
+## Required inputs
+
+- Webflow site name or site ID
+- Page name, slug, or page ID
+- Existing copy to locate
+- Replacement copy
+- Locale, when applicable
+
+## Workflow
+
+1. Confirm the Webflow MCP server is connected and authenticated.
+2. List accessible sites and resolve the requested site.
+3. Resolve the requested page.
+4. Check whether the page supports branching.
+5. Check whether an appropriate branch already exists.
+6. Create a new page branch when necessary.
+7. Switch the working context to the branch.
+8. Read the current page content before changing anything.
+9. Match the target copy exactly or identify the element containing it.
+10. Update only the specified text.
+11. Read the page content again and verify:
+    - the replacement text is present;
+    - unrelated content is unchanged;
+    - the production page was not modified.
+12. Return:
+    - site name;
+    - page name;
+    - branch name or ID;
+    - old copy;
+    - new copy;
+    - verification status.
+
+## Safety rules
+
+- Never edit the primary page when page branching is available.
+- Never publish, merge, or delete a branch without explicit approval.
+- Never rewrite surrounding copy unless explicitly requested.
+- Stop if more than one element matches the requested text.
+- Stop if the requested page cannot be identified confidently.
+- Preserve links, formatting, element structure, and component bindings.
+- For localized pages, confirm the locale before editing.
+- Read before writing and verify after writing.
+
+## Failure handling
+
+If branching is unavailable:
+
+1. Do not modify the production page.
+2. Explain whether the limitation is caused by the Webflow plan,
+   permissions, page type, or MCP capability.
+3. Ask for explicit approval before using a non-branch workflow.
+
+## Example request
+
+Update the homepage hero heading from:
+
+"Build better customer experiences"
+
+to:
+
+"Create customer experiences that convert"
+
+Make the change on a new branch called:
+
+`copy/homepage-hero-conversion`
+```
+
+This is metadata:
+
+```
+---
+name: webflow-copy-update
+description: Create a Webflow page branch and safely update the approved page copy.
+version: 1.0.0
+webflow_mcp_version: 2.0.1
+required_mcp_servers:
+  - webflow
+---
+```
+
++ `name`: this is the skill's display name in the skills listing, would be invoked by: `/webflow-copy-update`.
++ `description`: explains what the skill does and helps `Claude` decide when to load it automatically. This is the most important metadata line.
++ `version`: a custom version number for your own release management. It can help maintainers understand which revision they have installed, but Claude Code will not use it to select, update, or validate the skill.
++ `webflow_mcp_version`: another custom metadata field, intended to record the Webflow MCP version against which the instructions were written.
+
+To make it operational, add a body instruction requiring `Claude` to check compatibility, or include that requirement in plugin documentation.
+
++ `required_mcp_servers`: introduces the list. `- webflow` adds one item named `webflow`.
+
+However, `required_mcp_servers` is not a documented Claude Code skill field. By itself, it will not establish or require the connection.
+
+#### Required Inputs
+The `Required Inputs` introduces the information `Claude` needs before executing the workflow. `"Required"` implies `Claude` should obtain or resolve these values before changing anything. You should also specify what `Claude` must do when an input is missing: `ask the user`, `search Webflow`, or `stop`.
+
+This is a further improved `SKILL.md` file for Claude:
+
+```
+---
+name: webflow-copy-update
+description: Create a Webflow page branch and safely update the approved page copy.
+version: 1.0.0
+webflow_mcp_version: 2.0.1
+required_mcp_servers:
+  - webflow
+---
+
+# Webflow Copy Update
+
+Use this skill when tasked with updating copy on an existing Webflow page.
+
+## Objective
+
+Make copy changes on a page branch without modifying the production page directly.
+
+## Required inputs
+- Webflow site name or site ID
+- Page name, slug, or page ID
+- Existing copy to locate
+- Replacement copy
+- Locale, when applicable
+
+## Gathering inputs
+
+Review the user's request and the existing conversation before taking any action.
+
+Extract any required inputs that the user has already provided.
+
+If any required input is missing or ambiguous, ask the user for the missing information before creating a branch or modifying Webflow content.
+
+For the target page, accept any of the following:
+
+- page name;
+- page URL;
+- page slug;
+- page ID.
+
+Do not ask for a page ID when the user has already supplied a unique page name, URL, or slug.
+
+Do not ask for information that the user has already provided.
+
+Do not create a branch or modify Webflow content until:
+
+- the Webflow site has been identified confidently;
+- the target page has been identified confidently;
+- the existing copy has been confirmed;
+- the replacement copy has been confirmed;
+- the locale has been confirmed when localization applies.
+
+## Workflow
+
+1. Review the user's request and the existing conversation.
+2. Gather any missing or ambiguous required inputs.
+3. Confirm the Webflow MCP server is connected and authenticated.
+4. List accessible sites and resolve the requested site.
+5. Check whether the page supports branching.
+6. Check whether an appropriate branch already exists.
+7. Create a new page branch when necessary.
+8. Switch the working content to the branch.
+9. Read the current page content before changing anything.
+10. Match the target copy exactly or identify the element containing it.
+11. Read the page content again and vetify:
+  - the replacement text is present;
+  - unrelated content is unchanged;
+  - the production page was not modified.
+12. Return:
+  - site name;
+  - page name;
+  - branch name or ID;
+  - old copy;
+  - new copy;
+  - verification status.
+
+## Safety Rules
+
+- Never edit the primary page when page branching is available.
+- Never publish, merge, or delete a branch without explicit approval.
+- Never rewrite surrounding copy unless explicitly requested.
+- Stop if more than one element matches the requested text.
+- Stop if the requested page cannot be identified confidently.
+- Preserve links, formatting, element structure, and component bindings.
+- For localized pages, confirm the locale before editing.
+- Read before writing and verify after writing.
+
+## Failure handling
+
+If branching is unavailable:
+
+1. Do not modify the production page.
+2. Explain whether the limitation is caused by the Webflow plan, permissions, page type, or MCP capability.
+3. Ask for explicit approval before using a non-branch workflow.
+```
+
 ## Google Gemini
 `Antigravity CLI` is the replacement for `Gemini CLI`. Starting **June 18, 2026**, `Gemini CLI` stopped serving requests for the Gemini Code Assist for individuals, Google AI Pro, and Google AI Ultra tiers, and affected users should migrate to `Antigravity CLI`. `Antigravity CLI` is a newer implementation and part of Google's broader Antigravity agent platform.
 
