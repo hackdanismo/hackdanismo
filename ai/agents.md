@@ -233,7 +233,7 @@ If branching is unavailable:
 So a test prompt to run the SKILL.md would be:
 
 ```
-/webflow-copy-update On the Acme Marketing site, update the homepage hero heading from "Old heading" to "New heading".
+webflow-copy-update On the Acme Marketing site, update the homepage hero heading from "Old heading" to "New heading".
 ```
 
 ## Google Gemini
