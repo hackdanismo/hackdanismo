@@ -8,7 +8,9 @@ An `agent` is a system that uses a `large language model (LLM)` to not just gene
 ### Claude Code
 To start `Claude Code`, use the command: `claude` in the terminal.
 
-The fil structure to add a skill using a `SKILL.md` file:
+[https://help.webflow.com/hc/en-us/articles/52536649709971-Create-and-manage-AI-agent-instructions#h_01KVZ36H7ESH7BHH8TNRHQXE55](https://help.webflow.com/hc/en-us/articles/52536649709971-Create-and-manage-AI-agent-instructions#h_01KVZ36H7ESH7BHH8TNRHQXE55)
+
+The full structure to add a skill using a `SKILL.md` file:
 
 ```
 your-project/
