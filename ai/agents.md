@@ -233,7 +233,36 @@ If branching is unavailable:
 So a test prompt to run the SKILL.md would be:
 
 ```
-webflow-copy-update On the Acme Marketing site, update the homepage hero heading from "Old heading" to "New heading".
+webflow-copy-update On the Extension Demo site, update the homepage Heading Jumbo from "Grow your business" to "Updated with Claude Code"
+```
+
++ `.mcp.json` connects Claude Code to Webflow.
++ `.claude/skills/webflow-copy-update/SKILL.md` tells Claude how to perform the copy-update workflow.
+
+To setup the `Webflow MCP` with `Claude` that will generate the `.mcp.json` file in the project folder:
+
+```shell
+$ claude mcp add --transport http webflow https://mcp.webflow.com/mcp -s project
+```
+
+<img width="578" height="408" alt="Screenshot 2026-07-24 at 16 33 02" src="https://github.com/user-attachments/assets/62e0cb7b-3c75-42e4-85a9-243ce8260468" />
+
+Open `Claude Code` and then view the `MCP servers` listed:
+
+```shell
+$ claude
+$ mcp/
+```
+
+```
+your-project/
+└── .claude/
+    settings.local.json
+    └── skills/
+        └── webflow-copy-update/
+            └── SKILL.md
+    .mcp.json
+    .nvmrc
 ```
 
 ## Google Gemini
