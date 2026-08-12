@@ -12,6 +12,7 @@ To create a welcome page for the `GitHub` repo, open a new repository named afte
 ## Projects
 Here is a list of my projects to check out:
 
++ [grid](https://github.com/hackdanismo/grid) - responsive 12-column grid built using CSS Grid. Released under the MIT licence.
 + [reset](https://github.com/hackdanismo/reset) - a basic CSS reset used for web pages, websites and applications. Released under the MIT licence.
 
 <!--
