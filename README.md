@@ -9,6 +9,11 @@ To create a welcome page for the `GitHub` repo, open a new repository named afte
 + [Learning Rust: The Basics](https://medium.com/@hackdanismo/learning-rust-the-basics-d414ae56bbbc)
 + [Learning Rust: Taking the Next Steps](https://medium.com/@hackdanismo/learning-rust-taking-the-next-step-4d334dbd716c)
 
+## Notes
+A collection of notes documented in markdown files.
+
++ [macOS setup](/tools/setup.md) - setup instructions for installing tools on `macOS`.
+
 ## Projects
 Here is a list of my projects to check out:
 
