@@ -5,6 +5,7 @@ Here's a guide to setting up development tools on `macOS`.
 + [Homebrew](#homebrew)
 + [Git](#git)
 + [NVM](#nvm)
++ [SSH](#ssh)
 
 ## Terminal
 To close the terminal using the `exit` command:
@@ -86,3 +87,90 @@ $ npm --version
 
 <img width="855" height="236" alt="Using the terminal to check the version of Node and NPM installed." src="https://github.com/user-attachments/assets/fad9e08a-f773-43b3-ad99-6635eefc4bc6" />
 
+## SSH
+Setting up `SSH` for `macOS` is useful for working with `GitHub` to pull and push code to repositories. On a new Mac, the cleanest setup is to create a fresh SSH key specifically for the machine, add it to `macOS Keychain`, then register the `public key` with your `GitHub account`. `GitHub` currently recommends `Ed25519 keys`.
+
+Begin by checking that `git` is installed:
+
+```shell
+$ git --version
+```
+
+Then configure the `name` and `email` Git should put on your commits. Use the email associated with your `GitHub` account:
+
+```shell
+$ git config --global user.name "Your Name"
+$ git config --global user.email "YOUR_GITHUB_EMAIL"
+```
+
+Next, generate the `SSH` key using the same email:
+
+```shell
+$ ssh-keygen -t ed25519 -C "YOUR_GITHUB_EMAIL"
+```
+
+When you see the following, press `ENTER`:
+
+```shell
+$ Enter file in which to save the key (/Users/yourname/.ssh/id_ed25519):
+```
+
+It is recommended to set a `passphrase` when prompted. `macOS` can remember it in `Keychain`, so you normally won't need to type it repeatedly. We will now have:
+
+```text
+~/.ssh/id_ed25519
+~/.ssh/id_ed25519.pub
+```
+
+The `.pub` file is safe to give `GitHub`. Never upload or share `id_ed25519` itself.
+
+Next, we need to configure the `SSH` for `macOS`. 
+
+```shell
+$ mkdir -p ~/.ssh
+$ nano ~/.ssh/config
+```
+
+Add this:
+
+```text
+Host github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+```
+
+Save in `nano` with `Ctrl+O`, `Enter`, then `Ctrl+X`. `GitHub` recommends this `macOS` configuration so the key is automatically loaded and its passphrase can be stored in Keychain. Now add the key:
+
+```shell
+$ ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+```
+
+Now, copy the `public key` to add it to the clipboard:
+
+```shell
+$ pbcopy < ~/.ssh/id_ed25519.pub
+```
+
+Once done, Then go to GitHub: `Settings` → `SSH and GPG keys` → `New SSH key` and give the key a name to identify it e.g. `MacBook Pro 2026`. The `Key Type` should be: `Authentication Key`. Paste the `public key` we just copied (`CMS + v`) into the `Key` field.
+
+Click the `Add SSH key` button.
+
+Test the connection:
+
+```shell
+$ ssh -T git@github.com
+```
+
+If everything has been setup correctly, you should see this message:
+
+```text
+Hi hackdanismo! You've successfully authenticated, but GitHub does not provide shell access.
+```
+
+`SSH` is set up correctly on this Mac. One final useful check is your Git identity:
+
+```shell
+$ git config --global user.name
+$ git config --global user.email
+```
