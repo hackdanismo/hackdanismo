@@ -13,7 +13,7 @@ To create a welcome page for the `GitHub` repo, open a new repository named afte
 A collection of notes documented in markdown files.
 
 + [macOS setup](/tools/setup.md) - setup instructions for installing tools on `macOS`.
-+ [Next](/frameworks/next/md) - `Next.js` documentation.
++ [Next](/frameworks/next.md) - `Next.js` documentation.
 
 ## Projects
 Here is a list of my projects to check out:
