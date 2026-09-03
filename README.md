@@ -18,6 +18,7 @@ A collection of notes documented in markdown files.
 ## Projects
 Here is a list of my projects to check out:
 
++ [Oxfordshire Mind: Website Rebuild](https://github.com/hackdanismo/oxfordshire-mind-website) - **PRIVATE REPO** - Next.js application linked to a WordPress CMS using the WordPress REST API as a rebuild of the Oxfordshire Mind charity website.
 + [WordPress Plugin: Course Booking](https://github.com/hackdanismo/course-booking-wordpress-plugin) - **PRIVATE REPO** - WordPress plugin to manage course bookings.
 + [Chrome extension: Screenshot](https://github.com/hackdanismo/chrome-extension-screenshot) - Chrome extension to take screenshots of a web page as .png files. Released under the MIT licence.
 + [website](https://github.com/hackdanismo/dan-jackson-website) - personal website project.
