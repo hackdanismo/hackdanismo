@@ -6,6 +6,7 @@ Here's a guide to setting up development tools on `macOS`.
 + [Git](#git)
 + [NVM](#nvm)
 + [SSH](#ssh)
++ [Bash](#bash)
 
 ## Terminal
 To close the terminal using the `exit` command:
@@ -195,3 +196,203 @@ Hi hackdanismo! You've successfully authenticated, but GitHub does not provide s
 $ git config --global user.name
 $ git config --global user.email
 ```
+
+## Bash
+**TO BE TESTED USING A GIT REPOSITORY**
+
+Creating a `bash` script to manage code commits to a `GitHub` repository. This file is named: `git-commit-bash.sh`:
+
+```bash
+#!/bin/bash
+
+set -e
+
+echo "----------------------------------------"
+echo " Git Commit & Push Assistant "
+echo "----------------------------------------"
+
+# Check the script is within a Git repository.
+if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    echo "Error: This directory is not inside a Git repository."
+    exit 1
+fi
+
+# Show the repository.
+REPO_ROOT=$(git rev-parse --show-toplevel)
+echo "Repository: $REPO_ROOT"
+echo
+
+# The current branch.
+CURRENT_BRANCH=$(git branch --show-current)
+
+if [ -z "$CURRENT_BRANCH" ]; then
+    echo "Error: You appear to be in a detached HEAD state."
+    exit 1
+fi
+
+echo "Current branch: $CURRENT_BRANCH"
+echo
+
+# Offer to switch branches.
+read -r -p "Do you want to switch branches? (y/N): " SWITCH_BRANCH
+
+if [[ "$SWITCH_BRANCH" =~ ^[Yy]$ ]]; then
+    echo
+    echo "Available local branches:"
+    git branch --format='%(refname:short)'
+    echo
+
+    read -r -p "Enter the branch name to switch to: " TARGET_BRANCH
+
+    if git show-ref --verify --quiet "refs/heads/$TARGET_BRANCH"; then
+        git switch "$TARGET_BRANCH"
+        CURRENT_BRANCH="$TARGET_BRANCH"
+        echo "Switched to branch: $CURRENT_BRANCH"
+    else
+        echo "Error: Local branch '$TARGET_BRANCH' does not exist."
+        exit 1
+    fi 
+fi 
+
+echo 
+echo "----------------------------------------"
+echo " Git Status "
+echo "----------------------------------------"
+
+git status --short
+echo
+
+# Check whether there are any changes at all.
+if git diff --quiet && \
+    git diff --cached --quiet && \
+    [ -z "$(git ls-files --others --exclude-standard)" ]; then
+    echo "Nothing to commit. Working tree is clean."
+    exit 0
+fi
+
+# Show the full status.
+git status
+echo
+
+# Ask whether to stage changes.
+read -r -p "Stage all changes with 'git add -A'? (Y/n): " STAGE_CHANGES
+
+if [[ ! "$STAGE_CHANGES" =~ ^[Nn]$ ]]; then
+    git add -A
+    echo "Changes have been staged."
+else
+    echo
+    echo "No changes were staged automatically."
+    echo "Only files that have already been staged will be committed."
+fi
+
+echo
+echo "----------------------------------------"
+echo " Staged Changes "
+echo "----------------------------------------"
+
+git diff --cached --stat
+echo
+
+# Make sure something is staged
+if git diff --cached --quiet; then
+    echo "Nothing is staged for commit."
+    exit 0
+fi
+
+# Commit message
+read -r -p "Enter a commit message: " COMMIT_MESSAGE
+
+if [ -z "$COMMIT_MESSAGE" ]; then
+    echo "Error: The commit message cannot be empty."
+    exit 1
+fi
+
+echo
+echo "Commit message:"
+echo " $COMMIT_MESSAGE"
+echo
+
+read -r -p "Commit the changes? (Y/n): " CONFIRM_COMMIT
+
+if [[ "$CONFIRM_COMMIT" =~ ^[Nn]$ ]]; then
+    echo "Commit has been cancelled."
+    exit 0
+fi
+
+# Commit
+git commit -m "$COMMIT_MESSAGE"
+
+echo
+echo "Commit has been created successfully."
+echo
+
+# Check the current branch again to confirm it hasn't changed.
+CURRENT_BRANCH=$(git branch --show-current)
+
+# Check whether a remote exists.
+if ! git remote get-url origin >/dev/null 2>&1; then
+    echo "Commit has been completed, but no 'origin' remote is configured."
+    echo "Skipping push."
+    exit 0
+fi
+
+echo "Remote:"
+git remote get-url origin
+echo
+
+read -r -p "Push '$CURRENT_BRANCH' to origin? (Y/n): " CONFIRM_PUSH
+
+if [[ "$CONFIRM_PUSH" =~ ^[Nn]$ ]]; then
+    echo "Commit has been completed. Push skipped."
+    exit 0
+fi
+
+# Check whether the branch already has an upstream.
+if git rev-parse --abbrev-ref --symbolic-full-name '@{u}' >/dev/null 2>&1; then
+    git push
+else
+    echo "No upstream is configured for '$CURRENT_BRANCH'."
+    echo "Setting upstream to origin/$CURRENT_BRANCH..."
+    git push --set-upstream origin "$CURRENT_BRANCH"
+fi
+
+echo
+echo "----------------------------------------"
+echo " Commit and push completed successfully."
+echo " Branch: $CURRENT_BRANCH "
+echo "----------------------------------------"
+```
+
+Move the file from the `Desktop` to a personal scripts folder, ideally `~/.local/bin`.
+
+```shell
+# Creates a folder called .local/bin inside your home directory. The -p means "create parent folders if needed, and don't complain if the folder already exists."
+$ mkdir -p ~/.local/bin
+# Moves the script from the Desktop into ~/.local/bin. It also renames it from git-commit-bash.sh to git-commit-bash.
+$ mv ~/Desktop/git-commit-bash.sh ~/.local/bin/git-commit-bash
+# Makes the script executable, so macOS can run it like a command instead of treating it as just a text file.
+$ chmod +x ~/.local/bin/git-commit-bash
+```
+
+Then make sure that folder is in your `PATH`:
+
+```shell
+$ echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+$ source ~/.zshrc
+```
+
+After that, from inside any `Git` repository, you can run:
+
+```shell
+$ git-commit-bash
+```
+
+A couple of useful safeguards are included:
+
++ it refuses to run outside a Git repo
++ detects a detached HEAD
++ verifies the branch before switching
++ checks that there are actual changes
++ confirms that something is staged before committing
++ automatically sets the upstream branch on the first push.
