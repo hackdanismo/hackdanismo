@@ -17,6 +17,7 @@ A collection of notes documented in markdown files.
 ## Projects
 Here is a list of my projects to check out:
 
++ [Chrome extension: Screenshot](https://github.com/hackdanismo/chrome-extension-screenshot) - Chrome extension to take screenshots of a web page as .png files. Released under the MIT licence.
 + [website](https://github.com/hackdanismo/dan-jackson-website) - personal website project.
 + [grid](https://github.com/hackdanismo/grid) - responsive 12-column grid built using CSS Grid. Released under the MIT licence.
 + [reset](https://github.com/hackdanismo/reset) - a basic CSS reset used for web pages, websites and applications. Released under the MIT licence.
