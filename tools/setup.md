@@ -87,6 +87,27 @@ $ npm --version
 
 <img width="855" height="236" alt="Using the terminal to check the version of Node and NPM installed." src="https://github.com/user-attachments/assets/fad9e08a-f773-43b3-ad99-6635eefc4bc6" />
 
+Within a project file, a `.nvmrc` file can be added to the root of the project folder to specify the version of `Node` to use. This would set the `Node` version to `24.20.0`:
+
+```text
+24.20.0 
+```
+
+To create a `.nvmrc` file:
+
+```shell
+$ node -v > .nvmrc
+```
+
+When opening a project, use the following commands in the terminal to install the `Node` version using `NVM` (if not already installed), or set the `Node` version:
+
+```shell
+# Read the Node version in the .nvmrc file and install if not already installed
+$ nvm install
+# Use the Node version specified in the .nvmrc file
+$ nvm use
+```
+
 ## SSH
 Setting up `SSH` for `macOS` is useful for working with `GitHub` to pull and push code to repositories. On a new Mac, the cleanest setup is to create a fresh SSH key specifically for the machine, add it to `macOS Keychain`, then register the `public key` with your `GitHub account`. `GitHub` currently recommends `Ed25519 keys`.
 
