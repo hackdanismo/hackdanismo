@@ -29,6 +29,13 @@ With a default setup, the following will be installed:
 - tailwindcss
 - typescript
 
+It is worth adding a `.gitignore` file to the application project to prevent certain files being added to version control:
+
+```
+.next/
+node_modules
+```
+
 To run the application locally:
 
 ```shell
