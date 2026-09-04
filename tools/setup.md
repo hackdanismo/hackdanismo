@@ -198,7 +198,6 @@ $ git config --global user.email
 ```
 
 ## Bash
-**TO BE TESTED USING A GIT REPOSITORY**
 
 Creating a `bash` script to manage code commits to a `GitHub` repository. This file is named: `git-commit-bash.sh`:
 
