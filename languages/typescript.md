@@ -38,6 +38,37 @@ add("5", 10);
 
 As `"5"` is a `string` not a `number` so a warning will be returned.
 
+## tsconfig.json
+The `tsconfig.json` file is the configuration file for a `TypeScript` project. It tells `TypeScript` things like:
+
++ which files to compile
++ what version of JavaScript to output
++ whether strict type checking is enabled
++ where compiled files should go
++ how modules should be handled
+
+A simple example:
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "strict": true,
+    "outDir": "./dist"
+  },
+  "include": ["src"]
+}
+```
+
++ `"target": "ES2020"` - compile `TypeScript` into `JavaScript` compatible with `ES2020`.
++ `"module": "commonjs"` - use `CommonJS modules.
++ `"strict": true` - enable stricter type checking.
++ `"outDir": "./dist"` - put compiled JavaScript files into the `dist` folder.
++ `"include": ["src"]` - only compile files inside `src`.
+
+The `tsconfig.json` file should be in the root of the project folder as it's the settings file for the `TypeScript` compiler.
+
 ## Data Types
 In `TypeScript`, common `data types` include:
 
@@ -163,5 +194,38 @@ interface AddFunction {
 
 const add: AddFunction = (a, b) => {
     return a + b;
+};
+```
+
+### Optional Types
+If we want to specify optional types:
+
+```typescript
+type User = {
+    name?: string;
+    age?: number;
+    isAdmin?: boolean;
+};
+```
+
+Is roughly equivalent to writing:
+
+```typescript
+type User = {
+    name: string;
+    age: number;
+    isAdmin: boolean;
+};
+
+type PartialUser = Partial<User>;
+
+const userOne: User = {
+    name: "Alice",
+    age: 25,
+    isAdmin: false
+};
+
+const userTwo: PartialUser = {
+    name: "Bob"
 };
 ```
