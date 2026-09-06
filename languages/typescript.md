@@ -105,3 +105,63 @@ add(5, " apples");        // "5 apples"
 ```
 
 This function may return either a number or a string.
+
+## Type and Interface
+In `TypeScript`, you can define the shape of an object with either a `type` or `interface`. 
+
+```typescript
+// type
+type User = {
+    name: string;
+    age: number;
+    isAdmin: boolean;
+};
+
+// OR, use interface:
+interface User = {
+    name: string;
+    age: number;
+    isAdmin: boolean;
+};
+
+const user: User = {
+    name: "Alice",
+    age: 25,
+    isAdmin: false
+};
+```
+
+We can also type an object directly without creating a reusable type:
+
+```typescript
+const user: { name: string; age: number, isAdmin: boolean } = {
+    name: "Alice",
+    age: 25,
+    isAdmin: false
+};
+```
+
++ `interface` is mainly for object shapes and classes.
++ `type` is more flexible. It can describe objects, unions, primitives, tuples, and more.
++ `interface` can be extended very naturally.
++ `interface` can be declared more than once and `TypeScript` will merge the declarations.
+
+When using `type` or `interface` with functions:
+
+```typescript
+// With type
+type AddFunction = (a: number, b: number) => number;
+
+const add: AddFunction = (a, b) => {
+    return a + b;
+};
+
+// With interface
+interface AddFunction {
+    (a: number, b: number): number;
+}
+
+const add: AddFunction = (a, b) => {
+    return a + b;
+};
+```
