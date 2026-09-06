@@ -19,6 +19,7 @@ A collection of notes documented in markdown files.
 ## Projects
 Here is a list of my projects to check out:
 
++ [Personal Task Manager](https://github.com/hackdanismo/personal-task-manager) - Task manager application, built using React to develop React knowledge and learnings.
 + [The Car Website](https://github.com/hackdanismo/the-car-website) - a car enthusiast website built using Astro for the frontend and Sanity as the Content Management System (CMS).
 + [Oxfordshire Mind: Website Rebuild](https://github.com/hackdanismo/oxfordshire-mind-website) - **PRIVATE REPO** - Next.js application linked to a WordPress CMS using the WordPress REST API as a rebuild of the Oxfordshire Mind charity website.
 + [WordPress Plugin: Course Booking](https://github.com/hackdanismo/course-booking-wordpress-plugin) - **PRIVATE REPO** - WordPress plugin to manage course bookings.
