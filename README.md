@@ -15,6 +15,7 @@ A collection of notes documented in markdown files.
 + [macOS setup](/tools/setup.md) - setup instructions for installing tools on `macOS`.
 + [Next](/frameworks/next.md) - `Next.js` documentation.
 + [TypeScript](/languages/typescript.md) - `TypeScript` documentation.
++ [Miscellaneous](misc.md) - notes and documentation that currently do not have a unique document or category.
 
 ## Projects
 Here is a list of my projects to check out:
