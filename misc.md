@@ -7,6 +7,79 @@
 + **Technical SEO** - part of `Search Engine Optimisation (SEO)` with the focus on making websites easy for search engines like Google to `crawl`, `understand`, `index` and `rank`. It deals mainly with the website's technical foundation rather than the actual wording of pages or acquiring backlinks.
 + **Core Web Vitals** are `Google's` key metrics for measuring the real-world user experience of a webpage, especially how fast it loads, how responsive it feels, and how visually stable it is.
 
+## AI
+
+### AGENTS.md and CLAUDE.md
+`AGENTS.md` and `CLAUDE.md` are essentially instruction files for AI coding agents. You put them in a code repository so the AI understands how it should work on that specific project. Think of them as a `README.md` or `CONTRIBUTING.md` written specifically for AI assistants.
+
+`CLAUDE.md` is the native project-instructions file for Claude Code. Claude Code automatically loads it when working in a repository, so teams use it to tell Claude about the codebase, conventions, commands, architectural rules, testing expectations, and things it should or shouldn't change.
+
+```markdown
+# CLAUDE.md
+
+## Project
+This is an Astro + TypeScript marketing website.
+
+## Commands
+npm run dev
+npm run test
+npm run build
+
+## Coding standards
+- Use TypeScript strict mode.
+- Prefer server-side rendering where possible.
+- Do not add dependencies without approval.
+- Run tests before completing a task.
+
+## CMS
+Content comes from Sanity.
+Do not hardcode marketing copy into components.
+
+## Git
+- Create focused commits.
+- Do not modify unrelated files.
+- Never push directly to main.
+```
+
+Now if you tell Claude Code: `Add a new pricing page.` Claude doesn't have to rediscover all those rules from scratch. It already knows that the site uses `Astro`, content belongs in `Sanity`, `TypeScript` rules apply, and tests/builds should run.
+
+`AGENTS.md` serves much the same purpose, but it is designed as a more tool-independent convention. Various coding agents support it, including tools in the Codex/Cursor/Gemini ecosystem.
+
+Many teams therefore don't maintain two independent versions, because they can easily drift apart. Instead, they might make `AGENTS.md` the source of truth and have `CLAUDE.md` reference it.
+
+```markdown
+# CLAUDE.md
+
+@AGENTS.md
+```
+
+These files become particularly useful for agentic coding, because an AI agent may be doing much more than autocomplete. It might autonomously:
+
++ Read ticket
++ Explore repository
++ Design solution
++ Modify 8 files
++ Write tests
++ Run tests
++ Fix failures
++ Run build
++ Prepare PR
+
+Without project instructions, the agent has to infer things like:
+
++ Which framework should I use?
++ Can I add dependencies?
++ Which tests should I run?
++ What's the architecture?
++ Should content come from Sanity?
++ Can I modify the database schema?
++ How should errors be handled?
++ What constitutes "done"?
+
+`AGENTS.md` gives it those answers before it starts.
+
+Now you could ask an AI agent: `Add an enterprise landing-page template with HubSpot form integration and GA4 conversion tracking.` Because of `AGENTS.md`, it already knows how that organisation expects the work to be implemented.
+
 ## Incident management
 An incident could be anything from "the website is completely down" to "checkout conversions suddenly dropped because analytics stopped firing." Incident management means being able to help own production reliability alongside CI/CD, deployments, performance, uptime, and engineering standards.
 
