@@ -2,6 +2,7 @@
 
 ## Glossary
 + **Incident management** in software engineering is the process of detecting, responding to, resolving, and learning from production problems that affect users, systems, or business operations.
++ **CI/CD** is the process teams use to automatically test, validate, and release software changes.
 + **Dynamic content delivery** - show different content to different users or changing the content shown based on context, data, or rules at the time the page, app, email, or experience is loaded. This is opposite to `static content`, where everyone sees the same fixed content until someone manually changes it.
 + **Technical SEO** - part of `Search Engine Optimisation (SEO)` with the focus on making websites easy for search engines like Google to `crawl`, `understand`, `index` and `rank`. It deals mainly with the website's technical foundation rather than the actual wording of pages or acquiring backlinks.
 + **Core Web Vitals** are `Google's` key metrics for measuring the real-world user experience of a webpage, especially how fast it loads, how responsive it feels, and how visually stable it is.
@@ -25,6 +26,114 @@ Sentry + Datadog → PagerDuty → Slack/incident.io → GitHub/Vercel for rollb
 A more website-specific example would be a `Sanity CMS` publishing incident. Marketing publishes new content, but pages begin failing because a content model change wasn't backwards compatible. The engineer might temporarily revert the schema or add defensive rendering, restore the site, then improve schema validation and preview/testing workflows.
 
 Another example is `Core Web Vitals` suddenly deteriorating. Suppose an external marketing script causes LCP to jump from 1.8 seconds to 5 seconds. Monitoring or RUM data detects the regression. The web engineer identifies the third-party script, removes or lazy-loads it, verifies performance recovery, and then introduces performance budgets to prevent similar regressions.
+
+## CI/CD
+**CI = Continuous Integration**. Developers regularly merge code into a shared repository such as GitHub. Every change automatically runs checks to catch problems early—for example TypeScript compilation, linting, unit tests, integration tests, accessibility checks, or a production build.
+
+A simple CI flow might look like:
+
+Developer opens PR → GitHub Actions runs tests → TypeScript check passes → build succeeds → reviewer approves → code is merged
+
+**CD = Continuous Delivery** or **Continuous Deployment**. Once the code passes CI, the deployment pipeline prepares and releases it to an environment such as staging or production.
+
+There are two common meanings:
+
++ **Continuous Delivery**: the software is always ready to deploy, but a person may approve the production release.
++ **Continuous Deployment**: every change that passes the pipeline is automatically deployed to production.
+
+A deployment pipeline is the full automated path from code change to running production software.
+
+For a web application, it might look like:
+
+GitHub → CI checks → build → preview deployment → staging → automated tests → production deployment → monitoring
+
+For example, imagine you're working on an Astro + TypeScript website. You push a branch and open a pull request. GitHub Actions might run:
+
++ npm install
++ ESLint
++ TypeScript type checking
++ Unit tests
++ Astro production build
++ Lighthouse/Performance tests
+
+If everything passes, Vercel might automatically create a preview deployment so the team can test the actual website before merging. Once the PR is approved and merged into `main`:
+
++ main branch
++ CI tests
++ Production build
++ Deploy to Vercel
++ Smoke tests
++ Monitor errors/performance
+
+If something goes wrong, the team might roll back to the previous deployment.
+
+Common **CI/CD** tools include `GitHub Actions`, `GitLab CI/CD`, `CircleCI`, `Jenkins`, `Azure DevOps`, `Bitbucket Pipelines`, and `Buildkite`. Deployment platforms commonly include `Vercel`, `Netlify`, `AWS`, `Cloudflare`, `Azure`, `Google Cloud`, and `Kubernetes-based infrastructure`.
+
+A mature website pipeline could include:
+
++ Feature branch
++ Pull Request
++ Lint + TypeScript
++ Unit / integration tests
++ Astro / Next.js build
++ Sanity schema validation
++ Preview environment
++ Automated accessibility tests
++ Lighthouse / Core Web Vitals checks
++ Human PR review
++ Merge
++ Production environment
++ Smoke tests
++ Sentry / Datadog monitoring
+
+Good CI/CD makes it safe and fast for engineers to ship changes. Expect automated quality checks on every pull request, reproducible builds, preview or staging environments where appropriate, controlled production deployments, and monitoring after release. The goal isn't simply automation—it's reducing deployment risk while allowing the team to release frequently.
+
+The key distinction is: **CI asks "Is this change safe to merge?"**; **CD asks "Can we safely get this change into production?"**.
+
+## Tests
+**Unit tests** test a small piece of code in isolation, usually one function, component, or module. They answer: "Does this individual piece behave correctly?" For example, if you have:
+
+```typescript
+function calculateDiscount(price: number, discount: number) {
+  return price - price * discount
+}
+```
+
+A unit test might check that `calculateDiscount(100, 0.2)` returns `80`. Common tools include `Vitest`, `Jest`, `Mocha`, and for React components, `React Testing Library`.
+
+**Integration tests** check that multiple parts of the system work together correctly. They answer: "Do these pieces interact properly?" For example, you might test that a website form submits data, calls an API, writes to a database or CRM, and returns the correct response. an integration test might verify:
+
++ Website form
++ API endpoint
++ HubSpot integration
++ Lead has been created successfully
+
+Or it could test that an `Astro/Next.js` page correctly fetches content from `Sanity` and renders it. Common tools include `Playwright`, `Cypress`, `Vitest/Jest`, and API tools such as `Supertest`.
+
+**Smoke tests** are quick checks performed after a deployment to make sure the most important parts of the application are basically working. They answer: "Is the system alive and usable?" They are deliberately shallow rather than exhaustive.
+
+For a marketing website, smoke tests might check:
+
++ Homepage loads ✓
++ Pricing page loads ✓
++ Navigation works ✓
++ Signup form opens ✓
++ API responds ✓
++ No HTTP 500 errors ✓
+
+If those fail immediately after a production deployment, the team might stop the release or roll back.
+
+A unit test checks that the email-validation function rejects an invalid email. An integration test checks that submitting the form sends the correct payload to HubSpot. A smoke test checks that after deployment, the form page loads and a basic submission succeeds.
+
+In a CI/CD pipeline, you might therefore have:
+
++ Pull Request
++ Unit tests
++ Integration tests
++ Build
++ Deploy
++ Smoke tests
++ Production considered healthy
 
 ## Technical SEO
 Typical `technical SEO` work includes:
