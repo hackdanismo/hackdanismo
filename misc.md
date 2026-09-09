@@ -9,6 +9,53 @@
 
 ## AI
 
+### Agents
+In AI, an `agent` is a system that can do more than just answer a single prompt. It can take a goal, decide what steps are needed, use tools, inspect results, and continue working until the task is complete. A simple chatbot works roughly like:
+
+```
+User asks question
+→ AI responds
+```
+
+An agent works more like:
+
+```
+User gives goal
+→ Agent makes a plan
+→ Uses tools
+→ Checks results
+→ Adjusts approach
+→ Uses more tools if needed
+→ Produces final result
+```
+
+For example, we might tell a coding agent: `"Fix the broken checkout flow."` The agent could then inspect the codebase, identify the relevant files, read logs, modify code, add or update tests, run the test suite, fix failures, and prepare the final changes. That is why tools like `Claude Code`, Codex-style coding agents, `Cursor agents`, and similar systems are called `agents`: they can operate across multiple steps and interact with an environment rather than only generating text. Agents often have access to tools such as a terminal, web browser, Git, files, databases, APIs, issue trackers, or cloud services.
+
+A useful way to think about it is:
+
++ **LLM** = the brain
++ **Tools** = the hands
++ **Agent** = the brain + tools + decision-making loop
+
+For software engineering, a coding agent might follow a loop like:
+
+```
+Goal: Add a new feature
+
+1. Read AGENTS.md
+2. Inspect the codebase
+3. Identify relevant architecture
+4. Edit files
+5. Run unit tests
+6. Run integration tests
+7. Fix failures
+8. Run build
+9. Review diff
+10. Finish
+```
+
+This connects directly to `AGENTS.md`: that file tells the agent how it should behave inside that specific repository. The key difference is autonomy. An AI assistant mainly says, "Here's how you could do it." An agent can often say, "I’ll do the steps required to achieve it."
+
 ### AGENTS.md and CLAUDE.md
 `AGENTS.md` and `CLAUDE.md` are essentially instruction files for AI coding agents. You put them in a code repository so the AI understands how it should work on that specific project. Think of them as a `README.md` or `CONTRIBUTING.md` written specifically for AI assistants.
 
@@ -79,6 +126,80 @@ Without project instructions, the agent has to infer things like:
 `AGENTS.md` gives it those answers before it starts.
 
 Now you could ask an AI agent: `Add an enterprise landing-page template with HubSpot form integration and GA4 conversion tracking.` Because of `AGENTS.md`, it already knows how that organisation expects the work to be implemented.
+
+### MCP
+`MCP` stands for `Model Context Protocol`. It is an open standard that lets AI applications connect to external tools, data sources, and services in a consistent way. MCP is like a standard plug/socket for AI tools. Without MCP, every AI application might need a custom integration for GitHub, Slack, databases, Google Drive, internal APIs, and so on. With MCP, those systems can expose capabilities through an MCP server, and compatible AI applications can connect to them using the same protocol.
+
+AI tool examples can include `Claude Code`, `Cursor`, `VS Code`, or another agent application. Current MCP SDK documentation describes hosts such as Claude Code, VS Code, Cursor, and custom applications connecting to MCP servers. An MCP server exposes capabilities that the AI can access. For example, a GitHub-oriented MCP server might expose operations such as:
+
+```
+search_repository()
+read_issue()
+create_issue()
+read_pull_request()
+comment_on_pull_request()
+```
+
+The AI doesn't need to understand all of GitHub's REST API itself. It communicates with the MCP server through the common MCP interface.
+
+Imagine you give Claude Code this task: `"Find the Jira ticket for the broken pricing page, fix the bug, and open a GitHub PR."`. Without integrations, Claude might only have access to your local code. With MCP, you could connect it to:
+
+```
+Claude Code
+     │
+     ├── Jira MCP server
+     │       ↓
+     │   Search tickets
+     │
+     ├── GitHub MCP server
+     │       ↓
+     │   Read/create PRs
+     │
+     └── Database MCP server
+             ↓
+         Query data
+```
+
+The agent could potentially:
+
+```
+1. Search Jira
+2. Read the ticket
+3. Inspect repository
+4. Modify code
+5. Run tests
+6. Create GitHub PR
+7. Link the PR to the Jira ticket
+```
+
+```
+LLM
+ │
+ ▼
+Agent
+ │
+ ▼
+MCP
+ │
+ ├── GitHub
+ ├── Slack
+ ├── Jira
+ ├── PostgreSQL
+ ├── Google Drive
+ └── Internal APIs
+```
+
+So MCP is one of the ways the agent gets access to its tools. Without MCP, though, you may end up building:
+
+```
+Claude → custom GitHub integration
+Claude → custom Slack integration
+Claude → custom database integration
+
+Cursor → different GitHub integration
+Cursor → different Slack integration
+Cursor → different database integration
+```
 
 ## Incident management
 An incident could be anything from "the website is completely down" to "checkout conversions suddenly dropped because analytics stopped firing." Incident management means being able to help own production reliability alongside CI/CD, deployments, performance, uptime, and engineering standards.
