@@ -3,6 +3,7 @@
 ## Glossary
 + **Dynamic content delivery** - show different content to different users or changing the content shown based on context, data, or rules at the time the page, app, email, or experience is loaded. This is opposite to `static content`, where everyone sees the same fixed content until someone manually changes it.
 + **Technical SEO** - part of `Search Engine Optimisation (SEO)` with the focus on making websites easy for search engines like Google to `crawl`, `understand`, `index` and `rank`. It deals mainly with the website's technical foundation rather than the actual wording of pages or acquiring backlinks.
++ **Core Web Vitals** are `Google's` key metrics for measuring the real-world user experience of a webpage, especially how fast it loads, how responsive it feels, and how visually stable it is.
 
 ## Technical SEO
 Typical `technical SEO` work includes:
@@ -71,3 +72,15 @@ So the canonical tag would be added to the `<head>` section of the page to signa
 ```html
 <link rel="canonical" href="https://example.com/shoes">
 ```
+
+## Core Web Vitals
+`Core Web Vitals` are Google's key metrics for measuring the real-world user experience of a webpage, especially how fast it loads, how responsive it feels, and how visually stable it is. The three main Core Web Vitals are:
+
++ `LCP — Largest Contentful Paint`: measures loading performance. It tracks how long the main visible content takes to appear.
+Good: 2.5 seconds or less
++ `INP — Interaction to Next Paint`: measures responsiveness. It tracks how quickly the page reacts when a user clicks, taps, or types.
+Good: 200 ms or less
++ `CLS — Cumulative Layout Shift`: measures visual stability. It checks whether elements unexpectedly move around while the page is loading.
+Good: 0.1 or less
+
+For example, if a page loads its main image slowly, buttons feel delayed when clicked, or text jumps down because an ad suddenly appears, its Core Web Vitals may be poor. They matter because they affect user experience and are also part of Google’s page-experience signals used in Search.
