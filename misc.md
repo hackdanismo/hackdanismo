@@ -1,9 +1,30 @@
 # Miscellaneous
 
 ## Glossary
++ **Incident management** in software engineering is the process of detecting, responding to, resolving, and learning from production problems that affect users, systems, or business operations.
 + **Dynamic content delivery** - show different content to different users or changing the content shown based on context, data, or rules at the time the page, app, email, or experience is loaded. This is opposite to `static content`, where everyone sees the same fixed content until someone manually changes it.
 + **Technical SEO** - part of `Search Engine Optimisation (SEO)` with the focus on making websites easy for search engines like Google to `crawl`, `understand`, `index` and `rank`. It deals mainly with the website's technical foundation rather than the actual wording of pages or acquiring backlinks.
 + **Core Web Vitals** are `Google's` key metrics for measuring the real-world user experience of a webpage, especially how fast it loads, how responsive it feels, and how visually stable it is.
+
+## Incident management
+An incident could be anything from "the website is completely down" to "checkout conversions suddenly dropped because analytics stopped firing." Incident management means being able to help own production reliability alongside CI/CD, deployments, performance, uptime, and engineering standards.
+
+A typical incident lifecycle looks like this:
+
++ **Detect** — monitoring, alerts, user reports, analytics anomalies
++ **Triage** — determine severity, scope, and likely cause
++ **Respond** — assign an incident owner, communicate status, mitigate impact
++ **Resolve** — fix, roll back, disable a feature, scale infrastructure, etc.
++ **Recover** — verify the service is healthy again
++ **Review** — perform a post-incident review / postmortem and prevent recurrence
+
+The team might see an alert in `Datadog`, `Sentry`, or `New Relic`, for example as these are tools we can use to monitor for changes.
+
+Sentry + Datadog → PagerDuty → Slack/incident.io → GitHub/Vercel for rollback → postmortem
+
+A more website-specific example would be a `Sanity CMS` publishing incident. Marketing publishes new content, but pages begin failing because a content model change wasn't backwards compatible. The engineer might temporarily revert the schema or add defensive rendering, restore the site, then improve schema validation and preview/testing workflows.
+
+Another example is `Core Web Vitals` suddenly deteriorating. Suppose an external marketing script causes LCP to jump from 1.8 seconds to 5 seconds. Monitoring or RUM data detects the regression. The web engineer identifies the third-party script, removes or lazy-loads it, verifies performance recovery, and then introduces performance budgets to prevent similar regressions.
 
 ## Technical SEO
 Typical `technical SEO` work includes:
