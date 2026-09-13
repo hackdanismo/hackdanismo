@@ -9,6 +9,38 @@
 
 ## AI
 
+### Claude Code
+`Claude Code` needs `Node 18` or later to run. Begin by checking the `Node` versions:
+
+```shell
+$ node --version
+$ npm --version
+```
+
+Install `Claude Code` globally. Anthropic recommends not using: `sudo npm install -g` because it can cause security and permission issues.
+
+```shell
+$ npm install -g @anthropic-ai/claude-code
+```
+
+Once installed, go into your project:
+
+```shell
+$ cd ~/path/to/my-project
+```
+
+Start `Claude Code`:
+
+```shell
+$ claude
+```
+
+For the first time it will guide you through authentication. You can sign in using a `Claude Pro/Max` account, an `Anthropic Console account` with billing, or configure enterprise access through `AWS Bedrock/Google Vertex AI`. Once you're inside a project, you can give it instructions such as:
+
+```
+Explain how this codebase is structured.
+```
+
 ### Agents
 In AI, an `agent` is a system that can do more than just answer a single prompt. It can take a goal, decide what steps are needed, use tools, inspect results, and continue working until the task is complete. A simple chatbot works roughly like:
 
