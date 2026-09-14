@@ -35,11 +35,58 @@ Start `Claude Code`:
 $ claude
 ```
 
+<img width="855" height="452" alt="Initial theme settings within Claude Code." src="https://github.com/user-attachments/assets/0248b65a-6515-44e6-b030-4e1386907148" />
+
+<img width="858" height="435" alt="Selecting which service to use." src="https://github.com/user-attachments/assets/241bb4a2-4673-48c2-925c-32f75d9ba4c4" />
+
+Once authorisation has been completed:
+
+<img width="857" height="422" alt="Authorisation has been completed." src="https://github.com/user-attachments/assets/c8f2c68a-5c2c-40b4-a8d2-07a88ccf356b" />
+
+Claude Code is ready to use:
+
+<img width="854" height="462" alt="Claude Code is now ready to use." src="https://github.com/user-attachments/assets/f932dcdd-5d74-4904-a037-3e2b248234f2" />
+
 For the first time it will guide you through authentication. You can sign in using a `Claude Pro/Max` account, an `Anthropic Console account` with billing, or configure enterprise access through `AWS Bedrock/Google Vertex AI`. Once you're inside a project, you can give it instructions such as:
 
 ```
 Explain how this codebase is structured.
 ```
+
+### Setting up OpenRouter
+To use `OpenRouter` with `Claude Code`, within the project folder, create a file inside of `.claude/settings.local.json`. This file should be added to the `.gitignore` file as it contains API keys for the SDK that should nt be public. This is the recommended approach and should replace the need for an `.env` file. This `.claude/settings.local.json` file should contain:
+
+```json
+{
+  "env": {
+    "OPENROUTER_API_KEY": "sk-or-v1-xxxxx",
+    "ANTHROPIC_BASE_URL": "https://openrouter.ai/api",
+    "ANTHROPIC_AUTH_TOKEN": "sk-or-v1-xxxxx",
+    "ANTHROPIC_API_KEY": "",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "~anthropic/claude-sonnet-latest",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "~anthropic/claude-opus-latest",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "~anthropic/claude-haiku-latest"
+  }
+}
+```
+
+Once done, login to `Claude Code` and check:
+
+```
+/status
+```
+
+By default, `Claude Code` has been setup to use the latest modal. This can be expensive when it comes to token usage. So based on the task, the modal can be changed and the demand changed from high to low, to ensure small tasks do not eat into the token budget.
+
+```
+/model
+```
+
+So, for example:
+
++ **Sonnet** for implementation, refactoring, Astro work, tests, and docs.
++ **Haiku** for quick/light tasks if you want to minimise spend further.
++ **Opus** only for things like architecture review, difficult debugging, or a final codebase critique.
 
 ### Agents
 In AI, an `agent` is a system that can do more than just answer a single prompt. It can take a goal, decide what steps are needed, use tools, inspect results, and continue working until the task is complete. A simple chatbot works roughly like:
