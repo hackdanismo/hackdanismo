@@ -9,6 +9,121 @@
 
 ## AI
 
+### Codex
+`Codex` is similar to `Claude Code` but is linked to `ChatGPT`. To install `Codex`:
+
+```shell
+$ npm install -g @openai/codex
+```
+
+Once installed, go into a project folder and run `Codex`:
+
+```shell
+$ cd path/to/your-app
+$ codex
+```
+
+On first launch, follow the sign-in flow and choose `Sign in with ChatGPT`. We don't need to separately create an API key just to use your ChatGPT-plan Codex access.
+
+<img width="854" height="286" alt="Login to ChatGPT to use the LLM within Codex." src="https://github.com/user-attachments/assets/8afc7cd6-3c9e-4f67-9e4e-28e008af4c1d" />
+
+<img width="851" height="310" alt="Screen once Codex signin has been accomplished." src="https://github.com/user-attachments/assets/6a54e29f-81f3-4184-886b-58a5bab12a92" />
+
+A particularly effective workflow is to keep each request reasonably scoped rather than saying "build the entire app." Codex can inspect and modify a repository and execute development commands, so it works well as an agentic coding partner rather than just a code generator.
+
+Codex can be used inside `VS Code`, typically through the Codex/ChatGPT coding extension, so it can work with the files in your workspace instead of only through the terminal.
+
+The main difference is workflow: the CLI is great for agent-style tasks like "inspect the repo, implement this feature, run tests," while `VS Code` is more convenient when you want to stay in the editor, select code, ask questions about files, and review changes alongside the code.
+
+For building an app, using both together works well: keep VS Code open for editing and reviewing, and use Codex in the integrated terminal for larger multi-file tasks.
+
+One useful check after installing is:
+
+```shell
+$ codex --version
+```
+
+And if anything looks wrong:
+
+```shell
+$ codex doctor
+```
+
+or terminal/CLI use, your allowance depends on the model, how large your repo/context is, and how much work Codex is doing per request. Longer sessions, big codebases, lots of file reads, and repeated agentic runs consume more of the allowance than short coding questions.
+
+You can normally check your current Codex usage/reset status from the CLI with:
+
+```shell
+/status
+```
+
+Use the following command to change the `modal`:
+
+```shell
+/modal
+```
+
+If you see the message: `You have 2 usage limit resets available. Run /usage to use one.`, means you currently have 2 banked Codex usage resets available. If you hit, or are close to hitting, your Codex usage limit, running:
+
+```shell
+/usage
+```
+
+lets you spend one of those resets to refresh your Codex allowance immediately instead of waiting for the normal reset. A full banked reset refreshes both your 5-hour and weekly Codex usage windows, and it also changes when your weekly window will next reset.
+
+These resets are separate from your normal Pro allowance. OpenAI sometimes grants them through promotions, referrals, or one-time offers, and they aren't necessarily something you'll receive regularly.
+
+I wouldn't use one unless you're actually running low. If you're just starting your app and still have plenty of usage left, save both for a long coding session where you hit the cap.
+
+#### OpenRouter
+`Codex CLI` can be pointed at `OpenRouter` as a custom model provider, including models that OpenRouter currently offers on its free tier. Codex supports custom OpenAI-compatible providers, and OpenRouter documents a Codex-specific setup.
+
+You'd configure `~/.codex/config.toml` roughly like this:
+
+```toml
+model = "YOUR_OPENROUTER_MODEL_SLUG"
+model_provider = "openrouter"
+
+[model_providers.openrouter]
+name = "OpenRouter"
+base_url = "https://openrouter.ai/api/v1"
+wire_api = "responses"
+env_key = "OPENROUTER_API_KEY"
+```
+
+Then set your OpenRouter key:
+
+```shell
+$ export OPENROUTER_API_KEY="sk-or-..."
+$ codex
+```
+
+For a free model, you'd replace YOUR_OPENROUTER_MODEL_SLUG with the exact OpenRouter model ID that is currently marked free. OpenRouter's model availability changes, so it's worth checking the live catalog rather than hard-coding an old recommendation.
+
+One caveat: free on OpenRouter does not necessarily mean unlimited. Free models can have rate limits, provider availability constraints, or daily/request limits. You would avoid consuming your ChatGPT Pro Codex quota because the inference is going through OpenRouter, but you'd instead be subject to OpenRouter's limits for that model.
+
+If your goal is "Codex agent experience, but as close to zero cost as possible," OpenRouter + a free coding model is viable. A fully local model through Ollama is the option with no remote-provider quota at all.
+
+For free coding through OpenRouter, I’d start with Nex-N2.5-Mini (free).
+
+It’s unusually well matched to a Codex-style workflow: OpenRouter describes it as an agentic coding model designed to explore codebases, make multi-file changes, run commands, test software, diagnose failures, and iterate. It has a 262K context window, supports tool calling, and currently costs $0 for both input and output tokens.
+
+The model ID is:
+
+```shell
+nex-agi/nex-n2.5-mini:free
+```
+
+Second choice would be NVIDIA Nemotron 3 Ultra (free):
+
+```shell
+nvidia/nemotron-3-ultra-550b-a55b:free
+```
+
+It has a much larger 1M-token context window, supports tool calling, and OpenRouter currently ranks it #5 by usage among programming models. That makes it attractive for big repositories and tasks requiring more planning/reasoning.
+
+One important qualification: $0/token does not mean unlimited usage. OpenRouter explicitly says its free endpoints are rate limited.
+
 ### Claude Code
 `Claude Code` needs `Node 18` or later to run. Begin by checking the `Node` versions:
 
